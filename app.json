@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "colorApp",
-    "slug": "colorApp",
+    "name": "ColorApp",
+    "slug": "ColorApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/colorsicon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/colorssplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,10 +17,16 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "net.colorapp.ColorApp",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "net.colorapp.ColorApp",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

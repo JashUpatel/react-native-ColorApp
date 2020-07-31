@@ -4,13 +4,13 @@ import ColorButton from './colorButton';
 import ColorForm from './ColorForm';
 import WebPage from './webComponent';
 import * as Animatable from 'react-native-animatable';
-
+import AsyncStorage from '@react-native-community/async-storage';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
 // import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 const screenHeight = Dimensions.get('window').height
 
-const availableColors=['red'];
+const availableColors=['red','green','blue','yellow'];
 
 
 class Home extends Component {
@@ -23,12 +23,52 @@ class Home extends Component {
       availableColors:availableColors
 
     }
+    console.log('state value'+this.state.availableColors)
     this.change = this.change.bind(this);
     this.delete = this.delete.bind(this);
     this.addNewColor = this.addNewColor.bind(this);
 
 
+
   }
+  storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      console.log(jsonValue)
+      await AsyncStorage.setItem('@ColorApp-colorList', jsonValue)
+    } catch (e) {
+      console.log('saving error')
+        }
+  }
+
+  getData = async () => {
+      try {
+        const availableColor = await AsyncStorage.getItem('@ColorApp-colorList');
+        if (availableColor !== null) {
+          console.log('1'+availableColor)
+
+          var data = JSON.parse(availableColor)
+          console.log('2'+data)
+          this.setState({availableColors:data});
+          // return availableColor
+        } else {
+          console.log('--data no .')
+
+          this.setState({availableColors:availableColors});
+        }
+      } catch (e) {
+        console.log('cant fetch -'+e);
+      }
+    };
+
+  componentDidMount() {
+    // SplashScreen.hide();
+    this.getData()
+  }
+
+  componentWillUnmount() {
+      this.storeData(this.state.availableColors);
+    }
 
   change(backgroundColor){
     this.setState({backgroundColor: backgroundColor});
@@ -76,6 +116,8 @@ class Home extends Component {
     if(newcolor!=''&& !this.state.availableColors.includes(newcolor) &&newcolor.search(/[0-9]/) && newcolor.search(/[\\$&+,:;?@&*_%!{}^|//<>-]/g)){
     availableColors.push(newcolor);
     this.setState({availableColors});
+    this.storeData(this.state.availableColors);
+
   }
   else if(newcolor=='' || newcolor.length<3 || newcolor.length>17)
   {
