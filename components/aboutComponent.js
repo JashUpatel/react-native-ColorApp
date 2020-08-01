@@ -38,6 +38,7 @@ class AboutUs extends Component {
         style={styles.Logo}
         source={require('./color.jpg')}
       />
+      <Text style={{justifyContent:'center', textAlign:'center',alignItems:'center',fontFamily:'monospace',marginTop:12}}>v ~3.7.5</Text>
 
       </Animatable.View>
 

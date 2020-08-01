@@ -40,12 +40,17 @@ const CustomDrawerContentComponent = (props) => (
             </View>
 
         <DrawerItemList {...props}/>
-        <View style={{justifyContent:'center', alignItems:'center', marginTop:375}}>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop:475}}>
 
             <View style={styles.footer}>
-            <Text style={{fontSize:16,fontWeight:'bold'}}>Made With <Animatable.Text duration={2000} animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>❤️</Animatable.Text></Text>
+            <Text style={{fontSize:16,fontWeight:'bold'}}>Made With <Animatable.Text duration={2000} animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>❤️</Animatable.Text>{'\n\n\n\n\n\n'}</Text>
+
+
             </View>
+            <Text style={{justifyContent:'center', textAlign:'center',alignItems:'center',fontFamily:'monospace',marginTop:-185,marginLeft:-15}}>v ~3.7.5</Text>
+
             </View>
+
             </View>
 
     </ScrollView>
@@ -211,8 +216,6 @@ function ShareNavigatorScreen(){
     <ShareNavigator.Navigator screenOptions={{
       headerStyle:{
         backgroundColor:'#f8fbf8',
-        paddingTop:25,
-        marginVertical:10,
       },
       headerTintColor:'#fff',
       headerTitleStyle:{
@@ -243,8 +246,11 @@ const MainNavigator = createDrawerNavigator();
 function MainNavigatorScreen(){
   return(
     <MainNavigator.Navigator initialRouteName='Home'
-    drawerStyle={{backgroundColor:'#edeeef'}}
+    drawerStyle={{backgroundColor:'#edeeef',fontWeight:'bold',fontSize:24}}
     drawerContent={props=><CustomDrawerContentComponent {...props}/>}
+    drawerContentOptions={{
+    labelStyle: { fontWeight:'bold' },
+  }}
     >
     <MainNavigator.Screen name='Home'  component={HomeNavigatorScreen}
     options={{
@@ -256,7 +262,7 @@ function MainNavigatorScreen(){
     }} />
 
 
-    <MainNavigator.Screen name='Color List' component={WebNavigatorScreen}
+    <MainNavigator.Screen  name='Color List' component={WebNavigatorScreen}
     options={{
       drawerIcon:({tintColor})=>(
         <Icon name='search' type='font-awesome'
@@ -266,7 +272,7 @@ function MainNavigatorScreen(){
     }} />
 
 
-    <MainNavigator.Screen name='AboutUs' component={AboutNavigatorScreen}
+    <MainNavigator.Screen name='About Us' component={AboutNavigatorScreen}
     options={{
       drawerIcon:({tintColor})=>(
         <Icon name='info-circle' type='font-awesome'
@@ -286,7 +292,7 @@ function MainNavigatorScreen(){
 
 
 
-    <MainNavigator.Screen name='Developer Contact' component={ContactNavigatorScreen}
+    <MainNavigator.Screen name="Developer Contact" component={ContactNavigatorScreen}
     options={{
       drawerIcon:({tintColor})=>(
         <Icon name='user-circle-o' type='font-awesome'

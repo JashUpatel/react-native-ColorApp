@@ -71,14 +71,13 @@ class ShareComp extends Component {
         onPress={()=>this.invite()}
         >
       <View style={styles.row}>
-      <View style={{flex:1,marginLeft:20}}>
       <Icon
       name="share-square-o"
       type='font-awesome'
-      size={15}
+      size={26}
       color="#111111"
       />
-      </View>
+
       <Text style={styles.mainText}>Share    </Text>
       </View>
       </TouchableHighlight>
@@ -124,10 +123,11 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     alignSelf:'stretch',
-    justifyContent:'space-around'
+    justifyContent:'space-around',
+    paddingLeft:25,
+
     // borderWidth:1,
     // paddingVertical:10,
-    // paddingHorizontal:25,
   },
 
 

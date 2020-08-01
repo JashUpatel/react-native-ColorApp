@@ -4,9 +4,9 @@
     "slug": "ColorApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/colorsicon.png",
+    "icon": "./newcicon.png",
     "splash": {
-      "image": "./assets/colorssplash.png",
+      "image": "./newcicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,13 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "net.colorapp.ColorApp",
+      "bundleIdentifier": "net.game.colorapp.ColorApp",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "net.colorapp.ColorApp",
-      "versionCode": 1
+      "package": "netnet.game.colorapp.ColorApp",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
