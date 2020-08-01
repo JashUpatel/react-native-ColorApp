@@ -85,6 +85,8 @@ class Home extends Component {
        }
      }//=> [1, 2, 3, 4, 6, 7, 8, 9, 0]
     this.setState({availableColors:arr});
+    this.storeData(this.state.availableColors);
+
 
   }
 
@@ -100,7 +102,10 @@ class Home extends Component {
                     },
                     {
                         text:'OK',
-                        onPress:()=>{this.remove(backgroundColor)}
+                        onPress:()=>{
+                          this.remove(backgroundColor)
+
+                        }
                     }
 
                 ],
