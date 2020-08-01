@@ -10,7 +10,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 const screenHeight = Dimensions.get('window').height
 
-const availableColors=['red','green','blue','yellow'];
 
 
 class Home extends Component {
@@ -20,7 +19,7 @@ class Home extends Component {
     super(props);
     this.state={
       backgroundColor: '#fcfcfc',
-      availableColors:availableColors
+      availableColors:[]
 
     }
     console.log('state value'+this.state.availableColors)
@@ -53,6 +52,7 @@ class Home extends Component {
           // return availableColor
         } else {
           console.log('--data no .')
+          const availableColors=['red','green','blue','yellow'];
 
           this.setState({availableColors:availableColors});
         }
@@ -112,19 +112,81 @@ class Home extends Component {
 
 
   addNewColor(newcolor){
+    var color = this.state.availableColors;
 
-    if(newcolor!=''&& !this.state.availableColors.includes(newcolor) &&newcolor.search(/[0-9]/) && newcolor.search(/[\\$&+,:;?@&*_%!{}^|//<>-]/g)){
-    availableColors.push(newcolor);
-    this.setState({availableColors});
-    this.storeData(this.state.availableColors);
+    if(newcolor!=''&& newcolor.length>=3 && newcolor.length<=17 && !this.state.availableColors.includes(newcolor) && newcolor.search(/[0-9]/) && newcolor.search(/[\\$&+,:;?@&*_%!{}^|//<>-]/g)){
+      if(/^[a-zA-Z]+$/.test(newcolor)){
+        color.push(newcolor)
+        this.setState({availableColors:color});
+        this.storeData(this.state.availableColors);
 
+      }
+      else if(newcolor.startsWith('#') ){
+         if(newcolor.slice(1).match(/^([A-Za-z0-9)]+)$/i) && newcolor.length<8){
+           color.push(newcolor)
+           this.setState({availableColors:color});
+           this.storeData(this.state.availableColors);
+
+         }
+         else{
+           Alert.alert('Hexcode not found!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgb/rgba value(eg: rgb(0,0,0) )')
+
+         }
+
+      }
+      else if(newcolor.startsWith('rgba')){
+        var res1 = newcolor.split("rgba(").pop().split(",");
+        console.log(res1)
+        if((res1[0]>=0 && res1[0]<256) && (res1[1]>=0 && res1[1]<256) && (res1[2]>=0 && res1[2]<256) && (res1[3].split(")")[0]>=0 && res1[3].split(")")[0]<=1)){
+          color.push(newcolor)
+          this.setState({availableColors:color});
+          this.storeData(this.state.availableColors);
+        }
+        else{
+          Alert.alert('RGBA value not detected!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgb/rgba value(eg: rgb(0,0,0) )')
+
+        }
+
+        //  if( newcolor.match(/^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/)){
+        //   console.log("rgb");
+        // }
+      }
+      else if(newcolor.startsWith('rgb')){
+        var res = newcolor.split("rgb(").pop().split(",");
+        console.log(res)
+        if((res[0]>=0 && res[0]<256) && (res[1]>=0 && res[1]<256) && (res[2].split(")")[0]>=0 && res[2].split(")")[0]<256)){
+          color.push(newcolor)
+          this.setState({availableColors:color});
+          this.storeData(this.state.availableColors);
+        }
+        else{
+          Alert.alert('RGB value not detected!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgb/rgba value(eg: rgb(0,0,0) )')
+
+        }
+
+        //  if( newcolor.match(/^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/)){
+        //   console.log("rgb");
+        // }
+      }
+
+      else{
+        Alert.alert('Color not found!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgb/rgba value(eg: rgb(0,0,0) )')
+
+      }
+
+  }
+
+
+  else if(this.state.availableColors.includes(newcolor)){
+    Alert.alert('Already Present!','Color already present in the list.'+'\n'+'Try another color.')
   }
   else if(newcolor=='' || newcolor.length<3 || newcolor.length>17)
   {
     Alert.alert('Invalid Input!','Enter a valid color name.')
   }
   else{
-    Alert.alert('Color not detected!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgba value(eg: rgba(0,0,0,1) )')
+    Alert.alert('Color not found!','Check the color name in the Color List and try again.'+'\n\n'+'enter a color name or hexcode(eg: #ffffff ) or rgb/rgba value(eg: rgb(0,0,0) )')
+
   }
   }
 
